@@ -1,5 +1,3 @@
-<jsp:useBean id="usuario" class="beans.BeanUsuario" type="beans.BeanUsuario" scope="page"/>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Bem vindo ao sistema!!</h1>
-	
-
+	<h1>Acesso não autorizado!!</h1>
 </body>
 </html>

@@ -2,27 +2,18 @@ package beans;
 
 public class BeanUsuario {
 
-	private String nome;
-	private String cpf;
+	private String login;
 	private String senha;
 
 	public BeanUsuario() {
 	}
 
-	public String getNome() {
-		return nome;
+	public String getLogin() {
+		return login;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	public String getSenha() {
@@ -31,6 +22,15 @@ public class BeanUsuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public boolean validarUsuario(String login, String senha) {
+
+		if (login.equalsIgnoreCase("admin") && senha.equalsIgnoreCase("admin")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

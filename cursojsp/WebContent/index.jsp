@@ -1,5 +1,3 @@
-<jsp:useBean id="usuario" class="beans.BeanUsuario" type="beans.BeanUsuario" scope="page"/>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,11 +9,12 @@
 <body>
 	<h1>Index</h1>
 	
-	<form action="result.jsp" method="post">
-		<input type="text" id="nome" name="nome">
-		<input type="text" id="cpf" name="cpf">
-		<input type="text" id="senha" name="senha">
-		<input type="submit" value="Enviar">
+	<form action="LoginServlet" method="post">
+		Login: <input type="text" id="login" name="login">
+		<br/>
+		Senha: <input type="text" id="senha" name="senha">
+		<br/>
+		<input type="submit" value="Logar">
 	</form>
 		
 </body>
