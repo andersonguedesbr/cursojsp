@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Index</h1>
+	<h1>Index 222</h1>
 	
 	<form action="LoginServlet" method="post">
 		Login: <input type="text" id="login" name="login">
