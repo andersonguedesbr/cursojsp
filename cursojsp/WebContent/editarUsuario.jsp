@@ -22,27 +22,28 @@
 	</script>
 
 
-	<h1>Cadastro de Usuário</h1>
+	<h1>Alteração de Usuário</h1>
 	<form action="CadastrarUsuarioServlet" method="post">
 		<table>
 			<tr>
+				<td>Código</td>
+				<td><input type="text" id="id" name="id" value="${user.id}" readonly="readonly">
+			<tr>
 				<td>Nome:</td>
-				<td><input type="text" id="nome" name="nome"></td>
+				<td><input type="text" id="nome" name="nome" value="${user.nome}"></td>
 			<tr>
 				<td>Login:</td>
-				<td><input type="text" id="login" name="login"></td>
+				<td><input type="text" id="login" name="login" value="${user.login}"></td>
 			<tr>
 				<td>Senha:</td>
-				<td><input type="password" id="senha" name="senha"></td>
+				<td><input type="password" id="senha" name="senha" value="${user.senha}"></td>
 			<tr>
 				<td>Ativo:</td>
-				<td><input type="checkbox" checked="checked" id="situacao"
-					name="situacao">
+				<td><input type="checkbox" checked="checked" id="situacao" name="situacao" value="${user.situacao}">
 		</table>
 		<input type="submit" value="Salvar"> 
 		<input type="button" value="Voltar" onclick="voltar()">
 	</form>
-
 
 </body>
 </html>
