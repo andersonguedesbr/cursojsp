@@ -121,51 +121,54 @@ public class DaoUsuario {
 		}
 
 	}
-	
+
 	public BeanUsuario consultarUsuario(int id) throws Exception {
-		
+
 		BeanUsuario beanUsuario = new BeanUsuario();
-		
+
 		String sql = "SELECT * FROM public.user WHERE id = " + id;
 		PreparedStatement select = connection.prepareStatement(sql);
-		ResultSet resultSet =  select.executeQuery();
-		
-		if(resultSet.next()) {
+		ResultSet resultSet = select.executeQuery();
+
+		if (resultSet.next()) {
 			beanUsuario.setId(resultSet.getInt("id"));
 			beanUsuario.setNome(resultSet.getString("nome"));
 			beanUsuario.setLogin(resultSet.getString("login"));
 			beanUsuario.setSituacao(resultSet.getBoolean("situacao"));
-			
+
 			return beanUsuario;
 		}
-		
+
 		return null;
-		
+
 	}
-	/*
-	public List<BeanUsuario> consultarUsuarios(BeanUsuario beanUsuario) throws Exception{
-		
+
+	public List<BeanUsuario> consultarUsuarios(String nome, String login, boolean situacao) throws Exception {
+
 		List<BeanUsuario> listaUsuarios = new ArrayList<BeanUsuario>();
-		
-		String sql = "SELECT  * FROM public.user WHERE situacao = " + beanUsuario.isSituacao();
-		if (!beanUsuario.getNome().isEmpty()) {
-			 
-			sql += " AND nome = " + beanUsuario.getNome();
-		}
-		if (!beanUsuario.getLogin().isEmpty()) {
-			
-			sql += " AND login = " + beanUsuario.getLogin();
-		}
-		
+
+		String sql = "SELECT  * FROM public.user WHERE nome like ? AND login like ? AND situacao = ?";
+
 		PreparedStatement select = connection.prepareStatement(sql);
+		select.setString(1, "%" + nome + "%");
+		select.setString(2, "%" + login + "%");
+		select.setBoolean(3, situacao);
+
 		ResultSet resultSet = select.executeQuery();
-		
-		while(resultSet.next()) {
-			
-			
+
+		while (resultSet.next()) {
+
+			BeanUsuario beanUsuario = new BeanUsuario();
+
+			beanUsuario.setId(resultSet.getInt("id"));
+			beanUsuario.setNome(resultSet.getString("nome"));
+			beanUsuario.setLogin(resultSet.getString("login"));
+			beanUsuario.setSituacao(resultSet.getBoolean("situacao"));
+
+			listaUsuarios.add(beanUsuario);
 		}
 		
-		return null;
+		return listaUsuarios;
 	}
-*/
+
 }

@@ -80,32 +80,33 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 		beanUsuario.setSituacao(situacao);
 
 		if (acao.equalsIgnoreCase("pesquisar")) {
-			
-			try {
-				
-				
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		} else {
-			if (beanUsuario.getId() == 0) {
-				daoUsuario.incluirUsuario(beanUsuario);
-			} else {
-				daoUsuario.editarUsuario(beanUsuario);
-			}
 
 			try {
 
 				RequestDispatcher view = request.getRequestDispatcher("listarUsuarios.jsp");
-				request.setAttribute("usuarios", daoUsuario.listar());
+				request.setAttribute("usuarios", daoUsuario.consultarUsuarios(nome, login, situacao));
 				view.forward(request, response);
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
+		} else if (acao.equalsIgnoreCase("incluir")) {
+			daoUsuario.incluirUsuario(beanUsuario);
+		} else if (acao.equalsIgnoreCase("editar")) {
+			daoUsuario.editarUsuario(beanUsuario);
 		}
+
+		try {
+
+			RequestDispatcher view = request.getRequestDispatcher("listarUsuarios.jsp");
+			request.setAttribute("usuarios", daoUsuario.listar());
+			view.forward(request, response);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

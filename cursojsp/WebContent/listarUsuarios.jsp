@@ -7,6 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="resources/css/form.css">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -29,23 +30,18 @@
 
 	<h1>Pesquisar Usuários</h1>
 	<form action="CadastrarUsuarioServlet" method="post">
-		<table>
-			<tr>
-				<td>Nome:</td>
-				<td><input type="text" id="nome" name="nome"></td>
-			<tr>
-				<td>Login:</td>
-				<td><input type="text" id="login" name="login"></td>
-			<tr>
-				<td>Senha:</td>
-				<td><input type="password" id="senha" name="senha"></td>
-			<tr>
-				<td>Ativo:</td>
-				<td><input type="checkbox" checked="checked" id="situacao"
-					name="situacao">
-		</table>
+		<ul class="form-style-1">
+				<li> <label> Nome: </label> 
+				<input type="text" id="nome" name="nome" value="${param.nome}" class="field-divided">
+			
+				<li> <label> Login: </label>  
+				<input type="text" id="login" name="login" value="${param.login}" class="field-divided">
+			
+				<li> <label> Situação: </label> 
+				<input type="checkbox" checked="checked" id="situacao" name="situacao">
+		
 		<input type="hidden" id="acao" name="acao" value="pesquisar"> 
-		<input type="button" value="Pesquisar"> 
+		<li> <input type="submit" value="Pesquisar"> 
 		<input type="button" value="Novo" onclick="novo()">
 		<input type="button" value="Voltar" onclick="menu()">
 	</form>
