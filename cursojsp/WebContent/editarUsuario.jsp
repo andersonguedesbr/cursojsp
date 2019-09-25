@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="resources/css/form.css">
+<link rel="stylesheet" href="resources/css/table.css">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -18,7 +19,7 @@
 	<script type="text/javascript">
 	function voltar()
 	{
-		location.href="listarUsuarios.jsp"
+		location.href="CadastrarUsuarioServlet?acao=listar"
 	}
 	</script>
 
@@ -46,7 +47,7 @@
 			
 				<li>
 				<li> <label> Ativo: <span class="required">*</span></label>
-				<input type="checkbox" checked="checked" id="situacao" name="situacao" value="${user.situacao}">
+				<input type="checkbox" id="situacao" name="situacao" value="${user.situacao}">
 				
 				<li>		
 				<input type="hidden" id="acao" name="acao" value="editar">

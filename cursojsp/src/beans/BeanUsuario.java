@@ -51,13 +51,6 @@ public class BeanUsuario {
 		this.senha = senha;
 	}
 
-	public boolean validarUsuario(String login, String senha) {
 
-		if (login.equalsIgnoreCase("admin") && senha.equalsIgnoreCase("admin")) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 
 }

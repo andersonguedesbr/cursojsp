@@ -31,6 +31,16 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 
 		if (acao.equalsIgnoreCase("delete")) {
 			daoUsuario.excluirUsuario(id);
+			
+			try {
+				RequestDispatcher view = request.getRequestDispatcher("listarUsuarios.jsp");
+				request.setAttribute("usuarios", daoUsuario.listar());
+				view.forward(request, response);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 		} else if (acao.equalsIgnoreCase("update")) {
 
 			try {
@@ -41,22 +51,33 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 				request.setAttribute("user", beanUsuario);
 				dispatcher.forward(request, response);
 
+				try {
+					RequestDispatcher view = request.getRequestDispatcher("listarUsuarios.jsp");
+					request.setAttribute("usuarios", daoUsuario.listar());
+					view.forward(request, response);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
+		}else if (acao.equalsIgnoreCase("listar")) {
+			
+			try {
+				RequestDispatcher view = request.getRequestDispatcher("listarUsuarios.jsp");
+				request.setAttribute("usuarios", daoUsuario.listar());
+				view.forward(request, response);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 		}
 
-		try {
-			RequestDispatcher view = request.getRequestDispatcher("listarUsuarios.jsp");
-			request.setAttribute("usuarios", daoUsuario.listar());
-			view.forward(request, response);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 
 	}
 

@@ -13,16 +13,18 @@
 		<div id="formContent">
 			<h2 class="active">Sign In</h2>
 			<h2 class="inactive underlineHover">Sign Up</h2>
-			
+
 			<form action="LoginServlet" method="post" class="fadeIn second">
-				<input type="text" id="login" name="login" class="fadeIn second" placeholder="login"> <br />
-				<input type="text" id="senha" name="senha" class="fadeIn third" placeholder="senha"> <br /> <input
-					type="submit" value="Logar">
+				<input type="text" id="login" name="login" class="fadeIn second"
+					placeholder="login"> <br /> 
+					<input type="text" id="senha"
+					name="senha" class="fadeIn third" placeholder="senha"> <br />
+				<input type="submit" value="Logar">
 			</form>
-			
-			    <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
-    </div>
+
+			<div id="formFooter">
+				<a class="underlineHover" href="#">Esqueceu sua senha?</a>
+			</div>
 		</div>
 	</div>
 

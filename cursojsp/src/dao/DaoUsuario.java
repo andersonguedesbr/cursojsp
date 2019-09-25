@@ -63,9 +63,11 @@ public class DaoUsuario {
 
 	public boolean validarUsuario(String login, String senha) throws Exception {
 
-		String sql = "SELECT  * FROM public.user WHERE login = ? AND senha = ?";
+		String sql = "SELECT  * FROM public.user WHERE login = ? AND senha = ? AND situacao = TRUE";
 
 		PreparedStatement select = connection.prepareStatement(sql);
+		select.setString(1, login);
+		select.setString(2, senha);
 		ResultSet resultSet = select.executeQuery();
 
 		if (resultSet.next()) {

@@ -10,32 +10,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.BeanUsuario;
+import dao.DaoUsuario;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public LoginServlet() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public LoginServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		BeanUsuario beanUsuario = new BeanUsuario();
-		
-		String login = request.getParameter("login");
-		String senha = request.getParameter("senha");
-		
-		if(beanUsuario.validarUsuario(login, senha)) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");
-			dispatcher.forward(request, response);
-		}else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("acessonegado.jsp");
-			dispatcher.forward(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		try {
+			DaoUsuario daoUsuario = new DaoUsuario();
+
+			String login = request.getParameter("login");
+			String senha = request.getParameter("senha");
+
+			if (daoUsuario.validarUsuario(login, senha)) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");
+				dispatcher.forward(request, response);
+			} else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("acessonegado.jsp");
+				dispatcher.forward(request, response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="resources/css/form.css">
+<link rel="stylesheet" href="resources/css/table.css">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -47,19 +48,49 @@
 	</form>
 	<br>
 	<br>
-	<h1>Lista de usuários</h1>
 	
-	<table>
-		<c:forEach items="${usuarios}" var="user">
-			<tr>
-				<td style="width: 50px"><c:out value="${user.id}"></c:out></td>
-				<td style="width: 300px"><c:out value="${user.nome}"></c:out></td>
-				<td style="width: 150px"><c:out value="${user.login}"></c:out></td>
-				<td style="width: 150px"><c:out value="${user.situacao}"></c:out></td>
-				<td style="width: 70px"><a href="CadastrarUsuarioServlet?acao=delete&user=${user.id}">Excluir</a></td>
-				<td style="width: 70px"><a href="CadastrarUsuarioServlet?acao=update&user=${user.id}">Editar</a></td>
-		</c:forEach>
-	</table>
+	
+	<div class="table">
+	    
+	    <div class="row header blue">
+      		<div class="cell">
+        		Código
+        	 </div>
+        	 <div class="cell">
+        		Nome
+        	 </div>
+        	 <div class="cell">
+        		Login
+        	 </div>
+        	 <div class="cell">
+        		Situação
+        	 </div>
+        	 <div class="cell">
+        		Ações
+        	 </div>
+        </div>
+			<c:forEach items="${usuarios}" var="user">
+				<div class="row">
+					<div class="cell" data-title="Código">
+        				<c:out value="${user.id}"></c:out>
+      				</div>
+      				<div class="cell" data-title="Nome">
+        				<c:out value="${user.nome}"></c:out>
+      				</div>
+      				<div class="cell" data-title="Login">
+        				<c:out value="${user.login}"></c:out>
+      				</div>
+      				<div class="cell" data-title="Situação">
+        				<c:out value="${user.situacao}"></c:out>
+      				</div>
+      				<div class="cell" data-title="Ações">
+        				<a href="CadastrarUsuarioServlet?acao=delete&user=${user.id}"><img alt="Excluir" title="Excluir" src="resources/images/delete.png"></a>
+        				<a href="CadastrarUsuarioServlet?acao=update&user=${user.id}"><img alt="Editar" title="Editar" src="resources/images/edit.png"></a>
+      				</div>
+      			</div>
+					
+				</c:forEach>
 
+	</div>
 </body>
 </html>

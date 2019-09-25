@@ -4,6 +4,8 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="resources/css/form.css">
+<link rel="stylesheet" href="resources/css/table.css">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -11,8 +13,7 @@
 <body>
 	<h1>Bem vindo ao sistema!!</h1>
 	
-	<a href="listarUsuarios.jsp">Lista de Usuários</a>
+	<a href="CadastrarUsuarioServlet?acao=listar">Lista de Usuários</a>
 	
-
 </body>
 </html>
