@@ -61,7 +61,7 @@ public class DaoUsuario {
 		return listaUsuario;
 	}
 
-	public boolean validarUsuario(String login, String senha) throws Exception {
+	public BeanUsuario validarUsuario(String login, String senha) throws Exception {
 
 		String sql = "SELECT  * FROM public.user WHERE login = ? AND senha = ? AND situacao = TRUE";
 
@@ -71,10 +71,18 @@ public class DaoUsuario {
 		ResultSet resultSet = select.executeQuery();
 
 		if (resultSet.next()) {
-			return true;
+			BeanUsuario beanUsuario = new BeanUsuario();
+			
+			beanUsuario.setId(resultSet.getInt("id"));
+			beanUsuario.setNome(resultSet.getString("nome"));
+			beanUsuario.setLogin(resultSet.getString("login"));
+			beanUsuario.setSenha(resultSet.getString("senha"));
+			beanUsuario.setSituacao(resultSet.getBoolean("situacao"));
+			
+			return beanUsuario;
 
 		} else {
-			return false;
+			return null;
 
 		}
 	}
@@ -169,8 +177,33 @@ public class DaoUsuario {
 
 			listaUsuarios.add(beanUsuario);
 		}
-		
+
 		return listaUsuarios;
+	}
+
+	public boolean isDuplicado(BeanUsuario beanUsuario, String acao) throws Exception {
+
+		String sql = "SELECT count (*) FROM public.user WHERE login = ? ";
+
+		if (acao.equalsIgnoreCase("editar")) {
+
+			sql += "AND id != " + beanUsuario.getId();
+		}
+
+		PreparedStatement select = connection.prepareStatement(sql);
+		select.setString(1, beanUsuario.getLogin());
+		ResultSet resultSet = select.executeQuery();
+
+		if (resultSet.next()) {
+
+			if (resultSet.getInt("count") > 0) {
+
+				return true;
+			}
+		}
+
+		return false;
+
 	}
 
 }

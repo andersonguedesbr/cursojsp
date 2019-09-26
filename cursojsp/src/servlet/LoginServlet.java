@@ -34,11 +34,15 @@ public class LoginServlet extends HttpServlet {
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 
-			if (daoUsuario.validarUsuario(login, senha)) {
+			BeanUsuario beanUsuario = daoUsuario.validarUsuario(login, senha);
+			
+			if (beanUsuario != null) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");
+				request.setAttribute("user", beanUsuario);
 				dispatcher.forward(request, response);
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("acessonegado.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+				request.setAttribute("msg", "Credenciais inválidas");
 				dispatcher.forward(request, response);
 			}
 		} catch (Exception e) {

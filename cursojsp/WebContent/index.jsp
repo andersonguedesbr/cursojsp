@@ -15,6 +15,7 @@
 			<h2 class="inactive underlineHover">Sign Up</h2>
 
 			<form action="LoginServlet" method="post" class="fadeIn second">
+				<h5 style="color: red;">${msg}</h4>
 				<input type="text" id="login" name="login" class="fadeIn second"
 					placeholder="login"> <br /> 
 					<input type="text" id="senha"

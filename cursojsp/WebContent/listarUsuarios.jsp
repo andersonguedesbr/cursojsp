@@ -86,6 +86,7 @@
       				<div class="cell" data-title="Ações">
         				<a href="CadastrarUsuarioServlet?acao=delete&user=${user.id}"><img alt="Excluir" title="Excluir" src="resources/images/delete.png"></a>
         				<a href="CadastrarUsuarioServlet?acao=update&user=${user.id}"><img alt="Editar" title="Editar" src="resources/images/edit.png"></a>
+        				<a href="CadastrarUsuarioServlet?acao=detalhar&user=${user.id}"><img alt="Detalhar" title="Detalhar" src="resources/images/detalhar.png"></a>
       				</div>
       			</div>
 					

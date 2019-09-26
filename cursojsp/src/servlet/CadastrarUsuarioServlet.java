@@ -26,24 +26,18 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		String acao = request.getParameter("acao");
-		String id = request.getParameter("user");
+		try {
+			String acao = request.getParameter("acao");
+			String id = request.getParameter("user");
 
-		if (acao.equalsIgnoreCase("delete")) {
-			daoUsuario.excluirUsuario(id);
-			
-			try {
+			if (acao.equalsIgnoreCase("delete")) {
+				daoUsuario.excluirUsuario(id);
+
 				RequestDispatcher view = request.getRequestDispatcher("listarUsuarios.jsp");
 				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 
-		} else if (acao.equalsIgnoreCase("update")) {
-
-			try {
+			} else if (acao.equalsIgnoreCase("update")) {
 
 				BeanUsuario beanUsuario = daoUsuario.consultarUsuario(Integer.parseInt(id));
 
@@ -51,74 +45,85 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 				request.setAttribute("user", beanUsuario);
 				dispatcher.forward(request, response);
 
-				try {
-					RequestDispatcher view = request.getRequestDispatcher("listarUsuarios.jsp");
-					request.setAttribute("usuarios", daoUsuario.listar());
-					view.forward(request, response);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			} else if (acao.equalsIgnoreCase("listar")) {
 
-		}else if (acao.equalsIgnoreCase("listar")) {
-			
-			try {
 				RequestDispatcher view = request.getRequestDispatcher("listarUsuarios.jsp");
 				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
+
+			}else if (acao.equalsIgnoreCase("detalhar")) {
+
+				BeanUsuario beanUsuario = daoUsuario.consultarUsuario(Integer.parseInt(id));
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("detalharUsuario.jsp");
+				request.setAttribute("user", beanUsuario);
+				dispatcher.forward(request, response);
+
 			}
+			
+			
 
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String acao = request.getParameter("acao");
+		try {
 
-		String id = request.getParameter("id");
-		String nome = request.getParameter("nome");
-		String login = request.getParameter("login");
-		String senha = request.getParameter("senha");
-		boolean situacao = request.getParameter("situacao") != null;
+			String acao = request.getParameter("acao");
 
-		BeanUsuario beanUsuario = new BeanUsuario();
+			String id = request.getParameter("id");
+			String nome = request.getParameter("nome");
+			String login = request.getParameter("login");
+			String senha = request.getParameter("senha");
+			boolean situacao = request.getParameter("situacao") != null;
 
-		beanUsuario.setId(id != null ? Integer.parseInt(id) : 0);
-		beanUsuario.setNome(nome);
-		beanUsuario.setLogin(login);
-		beanUsuario.setSenha(senha);
-		beanUsuario.setSituacao(situacao);
+			BeanUsuario beanUsuario = new BeanUsuario();
 
-		if (acao.equalsIgnoreCase("pesquisar")) {
+			beanUsuario.setId(id != null ? Integer.parseInt(id) : 0);
+			beanUsuario.setNome(nome);
+			beanUsuario.setLogin(login);
+			beanUsuario.setSenha(senha);
+			beanUsuario.setSituacao(situacao);
 
-			try {
+			if (acao.equalsIgnoreCase("pesquisar")) {
 
 				RequestDispatcher view = request.getRequestDispatcher("listarUsuarios.jsp");
 				request.setAttribute("usuarios", daoUsuario.consultarUsuarios(nome, login, situacao));
 				view.forward(request, response);
 
-			} catch (Exception e) {
-				e.printStackTrace();
+			} else if (acao.equalsIgnoreCase("incluir")) {
+
+				if (!daoUsuario.isDuplicado(beanUsuario, acao)) {
+
+					daoUsuario.incluirUsuario(beanUsuario);
+
+				} else {
+
+					RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
+					request.setAttribute("msg", "Já existe um usuário com o login informado!");
+					request.setAttribute("nome", beanUsuario.getNome());
+					dispatcher.forward(request, response);
+				}
+
+			} else if (acao.equalsIgnoreCase("editar")) {
+
+				if (!daoUsuario.isDuplicado(beanUsuario, acao)) {
+
+					daoUsuario.editarUsuario(beanUsuario);
+
+				} else {
+					request.setAttribute("msg", "Já existe um usuário com o login informado!");
+
+					RequestDispatcher dispatcher = request.getRequestDispatcher("editarUsuario.jsp");
+					request.setAttribute("user", beanUsuario);
+					dispatcher.forward(request, response);
+				}
 			}
-
-		} else if (acao.equalsIgnoreCase("incluir")) {
-			daoUsuario.incluirUsuario(beanUsuario);
-		} else if (acao.equalsIgnoreCase("editar")) {
-			daoUsuario.editarUsuario(beanUsuario);
-		}
-
-		try {
 
 			RequestDispatcher view = request.getRequestDispatcher("listarUsuarios.jsp");
 			request.setAttribute("usuarios", daoUsuario.listar());
