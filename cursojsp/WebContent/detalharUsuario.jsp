@@ -42,6 +42,11 @@
 				<input type="text" id="login" name="login" value="${user.login}" readonly="readonly" class="field-divided">
 				
 				<li>
+
+				<li> <label> Telefone: </label>
+			 	<input type="text" id="telefone" name="telefone" class="field-divided" value="${user.telefone}" readonly="readonly">
+
+				<li>
 				
 				<li> <label> Ativo: <span class="required">*</span></label>
 				<input type="checkbox" id="situacao" name="situacao" value="${user.situacao}" readonly="readonly">

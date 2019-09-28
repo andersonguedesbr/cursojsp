@@ -20,12 +20,13 @@ public class DaoUsuario {
 
 	public void incluirUsuario(BeanUsuario beanUsuario) {
 		try {
-			String sql = "INSERT INTO public.user (nome, login, senha, situacao) VALUES (?, ?, ?, ?)";
+			String sql = "INSERT INTO public.user (nome, login, senha, telefone, situacao) VALUES (?, ?, ?, ?, ?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, beanUsuario.getNome());
 			insert.setString(2, beanUsuario.getLogin());
 			insert.setString(3, beanUsuario.getSenha());
-			insert.setBoolean(4, beanUsuario.isSituacao());
+			insert.setString(4, beanUsuario.getTelefone());
+			insert.setBoolean(5, beanUsuario.isSituacao());
 			insert.execute();
 			connection.commit();
 
@@ -53,6 +54,7 @@ public class DaoUsuario {
 			beanUsuario.setId(resultSet.getInt("id"));
 			beanUsuario.setNome(resultSet.getString("nome"));
 			beanUsuario.setLogin(resultSet.getString("login"));
+			beanUsuario.setTelefone(resultSet.getString("telefone"));
 			beanUsuario.setSituacao(resultSet.getBoolean("situacao"));
 
 			listaUsuario.add(beanUsuario);
@@ -77,6 +79,7 @@ public class DaoUsuario {
 			beanUsuario.setNome(resultSet.getString("nome"));
 			beanUsuario.setLogin(resultSet.getString("login"));
 			beanUsuario.setSenha(resultSet.getString("senha"));
+			beanUsuario.setTelefone(resultSet.getString("telefone"));
 			beanUsuario.setSituacao(resultSet.getBoolean("situacao"));
 			
 			return beanUsuario;
@@ -110,14 +113,15 @@ public class DaoUsuario {
 	public void editarUsuario(BeanUsuario beanUsuario) {
 
 		try {
-			String sql = "UPDATE public.user SET nome = ?, login = ?, senha = ?, situacao = ? WHERE id = ?";
+			String sql = "UPDATE public.user SET nome = ?, login = ?, senha = ?, situacao = ?, telefone = ? WHERE id = ?";
 
 			PreparedStatement update = connection.prepareStatement(sql);
 			update.setString(1, beanUsuario.getNome());
 			update.setString(2, beanUsuario.getLogin());
 			update.setString(3, beanUsuario.getSenha());
 			update.setBoolean(4, beanUsuario.isSituacao());
-			update.setInt(5, beanUsuario.getId());
+			update.setString(5, beanUsuario.getTelefone());
+			update.setInt(6, beanUsuario.getId());
 			update.executeUpdate();
 			connection.commit();
 
@@ -145,6 +149,7 @@ public class DaoUsuario {
 			beanUsuario.setNome(resultSet.getString("nome"));
 			beanUsuario.setLogin(resultSet.getString("login"));
 			beanUsuario.setSituacao(resultSet.getBoolean("situacao"));
+			beanUsuario.setTelefone(resultSet.getString("telefone"));
 
 			return beanUsuario;
 		}
@@ -174,6 +179,7 @@ public class DaoUsuario {
 			beanUsuario.setNome(resultSet.getString("nome"));
 			beanUsuario.setLogin(resultSet.getString("login"));
 			beanUsuario.setSituacao(resultSet.getBoolean("situacao"));
+			beanUsuario.setTelefone(resultSet.getString("telefone"));
 
 			listaUsuarios.add(beanUsuario);
 		}

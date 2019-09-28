@@ -26,9 +26,9 @@
 				<i class="icon-home"></i>
 				<h2>Usuários</h2>
 			</a>
-			<a href="javascript://" class='wide orange'>
+			<a href="ProdutoServlet?acao=listar" class='wide orange'>
 				<i class="icon-cog"></i>
-				<h2>Outro menu</h2>
+				<h2>Produtos</h2>
 			</a>
 			<a href="javascript://" class='box redgay'>
 				<i class="icon-camera"></i>

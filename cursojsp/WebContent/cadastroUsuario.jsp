@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="resources/css/form.css">
 <link rel="stylesheet" href="resources/css/table.css">
 </head>
-</body>
+<body>
 
 <script type="text/javascript">
 	function voltar() {
@@ -22,14 +22,14 @@
 </script>
 
 
-<h1>Cadastro de Usuário</h1>
+<h1>Cadastrar novo Usuário</h1>
 
 <h3 style="color:red;">${msg}</h3>
 
 <form action="CadastrarUsuarioServlet" method="post">
 	<ul class="form-style-1">
 		<li> <label> Nome:<span class="required">*</span></label> 
-		<input type="text" id="nome" name="nome" class="field-divided" placeholder="Insira o nome">
+		<input type="text" id="nome" name="nome" class="field-divided" placeholder="Insira o nome" value="${user.nome}">
 		
 		<li>
 		
@@ -43,11 +43,18 @@
 		
 		<li>
 		
+		<li> <label> Telefone: </label>
+			 <input type="text" id="telefone" name="telefone" class="field-divided" placeholder="Insira o telefone" value="${user.telefone}">
+
+		<li>
+		
 		<li> <label> Ativo: <span class="required">*</span></label>
 			 <input type="checkbox" checked="checked" id="situacao" name="situacao" value="${user.situacao}">
 			 
+			 
 			 <input type="hidden" id="acao" name="acao" value="incluir">
-			 <li> <input type="submit" value="Salvar"> <input type="button" value="Voltar" onclick="voltar()">
+			 <li> <input type="submit" value="Salvar"> 
+			 <input type="button" value="Voltar" onclick="voltar()">
 </form>
 
 

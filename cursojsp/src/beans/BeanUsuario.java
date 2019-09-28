@@ -7,6 +7,7 @@ public class BeanUsuario {
 	private String login;
 	private String senha;
 	private boolean situacao;
+	private String telefone;
 
 	public BeanUsuario() {
 	}
@@ -51,6 +52,12 @@ public class BeanUsuario {
 		this.senha = senha;
 	}
 
+	public String getTelefone() {
+		return telefone;
+	}
 
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
 }

@@ -11,13 +11,13 @@
 <link rel="stylesheet" href="resources/css/table.css">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Sistema JSP</title>
 
 </head>
 <body>
 
 	<script type="text/javascript">
-	function menu()
+	function voltar()
 	{
 		location.href="result.jsp"
 	}
@@ -44,7 +44,7 @@
 		<input type="hidden" id="acao" name="acao" value="pesquisar"> 
 		<li> <input type="submit" value="Pesquisar"> 
 		<input type="button" value="Novo" onclick="novo()">
-		<input type="button" value="Voltar" onclick="menu()">
+		<input type="button" value="Voltar" onclick="voltar()">
 	</form>
 	<br>
 	<br>
@@ -63,6 +63,9 @@
         		Login
         	 </div>
         	 <div class="cell">
+        		Telefone
+        	 </div>
+        	 <div class="cell">
         		Situação
         	 </div>
         	 <div class="cell">
@@ -79,6 +82,9 @@
       				</div>
       				<div class="cell" data-title="Login">
         				<c:out value="${user.login}"></c:out>
+      				</div>
+      				<div class="cell" data-title="Telefone">
+        				<c:out value="${user.telefone}"></c:out>
       				</div>
       				<div class="cell" data-title="Situação">
         				<c:out value="${user.situacao}"></c:out>

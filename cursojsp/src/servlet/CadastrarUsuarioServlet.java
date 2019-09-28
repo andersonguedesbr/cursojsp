@@ -80,6 +80,7 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 			String nome = request.getParameter("nome");
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
+			String telefone = request.getParameter("telefone");
 			boolean situacao = request.getParameter("situacao") != null;
 
 			BeanUsuario beanUsuario = new BeanUsuario();
@@ -88,6 +89,7 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 			beanUsuario.setNome(nome);
 			beanUsuario.setLogin(login);
 			beanUsuario.setSenha(senha);
+			beanUsuario.setTelefone(telefone);
 			beanUsuario.setSituacao(situacao);
 
 			if (acao.equalsIgnoreCase("pesquisar")) {
