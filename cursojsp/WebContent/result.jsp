@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="resources/css/inicial.css">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Sistema JSP</title>
 </head>
 <body>
 	  <div class="container">

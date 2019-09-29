@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
 	function voltar() {
-		location.href = "listarUsuarios.jsp"
+		location.href = "CadastrarUsuarioServlet?acao=listar"
 	}
 </script>
 

@@ -33,7 +33,11 @@ public class ProdutoServlet extends HttpServlet {
 			double valorInicial = Double.parseDouble(request.getParameter("valorInicial") == null || request.getParameter("valorInicial").isEmpty() ? "0" : request.getParameter("valorInicial") );
 			double valorFinal = Double.parseDouble(request.getParameter("valorFinal") == null || request.getParameter("valorFinal").isEmpty() ? "0" : request.getParameter("valorFinal"));
 			
-			if (acao.equalsIgnoreCase("listar")) {
+			if (acao.equalsIgnoreCase("novo")) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("cadastrarProduto.jsp");
+				dispatcher.forward(request, response);
+			
+			} else if (acao.equalsIgnoreCase("listar")) {
 				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("ProdutoListar.jsp");
 				request.setAttribute("produtos", daoProduto.listar());
@@ -44,6 +48,14 @@ public class ProdutoServlet extends HttpServlet {
 				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("ProdutoListar.jsp");
 				request.setAttribute("produtos", daoProduto.pesquisar(id, descricao, unidade, valorInicial, valorFinal));
+				dispatcher.forward(request, response);
+				
+			} else if (acao.equalsIgnoreCase("abirEditar")) {
+				
+				BeanProduto beanProduto = daoProduto.consultarProduto(id);
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("produtoEditar.jsp");
+				request.setAttribute("produto", beanProduto);
 				dispatcher.forward(request, response);
 			}
 			
@@ -61,14 +73,19 @@ public class ProdutoServlet extends HttpServlet {
 			
 			BeanProduto beanProduto = new BeanProduto();
 			
+			beanProduto.setId(Long.parseLong(request.getParameter("id") == null || request.getParameter("id").isEmpty() ? "0" : request.getParameter("id")));
 			beanProduto.setDescricao(request.getParameter("descricao"));
-			beanProduto.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
+			beanProduto.setQuantidade(Integer.parseInt(request.getParameter("quantidade") == null || request.getParameter("quantidade").isEmpty() ? "0" : request.getParameter("quantidade")));
 			beanProduto.setUnidade(request.getParameter("unidade"));
-			beanProduto.setValor(Double.parseDouble(request.getParameter("valor")));
+			beanProduto.setValor(Double.parseDouble(request.getParameter("valor") == null || request.getParameter("valor").isEmpty() ? "0" : request.getParameter("valor") ));
 			
 			if (acao.equalsIgnoreCase("incluir")) {
 				daoProduto.incluir(beanProduto);
+			} else if (acao.equalsIgnoreCase("editar")) {
+				daoProduto.editar(beanProduto);
 			}
+			
+			
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("ProdutoListar.jsp");
 			request.setAttribute("produtos", daoProduto.listar());

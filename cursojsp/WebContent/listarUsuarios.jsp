@@ -19,12 +19,12 @@
 	<script type="text/javascript">
 	function voltar()
 	{
-		location.href="result.jsp"
+		location.href="LoginServlet?acao=inicial"
 	}
 	
 	function novo()
 	{
-		location.href="cadastroUsuario.jsp"
+		location.href="CadastrarUsuarioServlet?acao=novo"
 	}
 	</script>
 

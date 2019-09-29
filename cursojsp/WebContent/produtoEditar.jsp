@@ -1,31 +1,36 @@
 <jsp:useBean id="produto" class="beans.BeanProduto" type="beans.BeanProduto" scope="page"/>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="resources/css/form.css">
+<link rel="stylesheet" href="resources/css/table.css">
 <head>
 <meta charset="UTF-8">
 <title>Sistema JSP</title>
-<link rel="stylesheet" href="resources/css/form.css">
-<link rel="stylesheet" href="resources/css/table.css">
 </head>
 <body>
 
 <script type="text/javascript">
-	function voltar(){
-		location.href="ProdutoServlet?acao=listar";
+	function voltar() {
+		location.href="ProdutoServlet?acao=listar"
+		
 	}
 </script>
 
-	<h1>Cadastrar novo Produto</h1>
+	<h1>Alteração de Produto</h1>
 	
 	<h3 style="color:red;">${msg}</h3>
-
+	
 	<form action="ProdutoServlet" method="post">
-		<ul class="form-style-1">
+	<ul class="form-style-1">
+		
+		<li> <label> Código:</label> 
+		<input type="text" id="id" name="id" value="${produto.id}" class="field-divided" readonly="readonly" >
+		
+		<li>
 		
 		<li> <label> Descrição:<span class="required">*</span></label> 
 		<input type="text" id="descricao" name="descricao" class="field-divided" placeholder="Insira a descrição do produto" value="${produto.descricao}">
@@ -47,10 +52,10 @@
 		
 		<li>
 		
-		<input type="hidden" id="acao" name="acao" value="incluir">
+		<input type="hidden" id="acao" name="acao" value="editar">
 		<input type="submit" value="Salvar">
 		<input type="button" value="Voltar" onclick="voltar()">
-		
+	
 	</form>
 
 </body>

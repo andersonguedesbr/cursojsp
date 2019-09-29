@@ -22,7 +22,13 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doPost(request, response);
+		
+		String acao = request.getParameter("acao");
+		
+		if(acao.equalsIgnoreCase("inicial")) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

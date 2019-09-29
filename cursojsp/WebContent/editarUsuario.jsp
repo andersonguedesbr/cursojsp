@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="resources/css/table.css">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Sistema JSP </title>
 
 </head>
 <body>

@@ -30,6 +30,10 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 			String acao = request.getParameter("acao");
 			String id = request.getParameter("user");
 
+			if (acao.equalsIgnoreCase("novo")) {
+				RequestDispatcher view = request.getRequestDispatcher("cadastroUsuario.jsp");
+				view.forward(request, response);
+			}
 			if (acao.equalsIgnoreCase("delete")) {
 				daoUsuario.excluirUsuario(id);
 

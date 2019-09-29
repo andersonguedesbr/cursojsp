@@ -16,11 +16,11 @@
 
 	<script type="text/javascript">
 		function voltar() {
-			location.href="result.jsp"
+			location.href="LoginServlet?acao=inicial"
 		}
 		
 		function novo() {
-			location.href="produtoIncluir.jsp"
+			location.href="ProdutoServlet?acao=novo"
 		}
 	</script>
 	
@@ -95,9 +95,9 @@
 					<c:out value="${produto.valor}"></c:out>
 				</div>
 				<div class="cell" data-title="Ações">
-					<a href="ProdutoServlet?acao=delete&produto=${produto.id}"><img alt="Exclur" title="Excluir" src="resources/images/delete.png"></a>
-					<a href="ProdutoServlet?acao=update&produto=${produto.id}"><img alt="Editar" title="Editar" src="resources/images/edit.png"></a>
-					<a href="ProdutoServlet?acao=detalhar&produto=${produto.id}"><img alt="Detalhar" title="Detalhar" src="resources/images/detalhar.png"></a>
+					<a href="ProdutoServlet?acao=delete&id=${produto.id}"><img alt="Exclur" title="Excluir" src="resources/images/delete.png"></a>
+					<a href="ProdutoServlet?acao=abirEditar&id=${produto.id}"><img alt="Editar" title="Editar" src="resources/images/edit.png"></a>
+					<a href="ProdutoServlet?acao=detalhar&id=${produto.id}"><img alt="Detalhar" title="Detalhar" src="resources/images/detalhar.png"></a>
 				</div>
 			</div>
 		</c:forEach>

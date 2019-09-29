@@ -42,8 +42,7 @@ public class DaoProduto {
 
 	}
 
-	public List<BeanProduto> listar()
-			throws Exception {
+	public List<BeanProduto> listar() throws Exception {
 
 		List<BeanProduto> listaProdutos = new ArrayList<BeanProduto>();
 
@@ -67,9 +66,9 @@ public class DaoProduto {
 		return listaProdutos;
 
 	}
-	
-	public List<BeanProduto> pesquisar(Long id, String descricao, String unidade, double valorInicial, double valorFinal)
-			throws Exception {
+
+	public List<BeanProduto> pesquisar(Long id, String descricao, String unidade, double valorInicial,
+			double valorFinal) throws Exception {
 
 		List<BeanProduto> listaProdutos = new ArrayList<BeanProduto>();
 
@@ -103,6 +102,54 @@ public class DaoProduto {
 		}
 
 		return listaProdutos;
+
+	}
+
+	public void editar(BeanProduto beanProduto) {
+
+		try {
+			String sql = "UPDATE public.produto SET (descricao, quantidade, unidade, valor) VALUES (?, ?, ?, ?) WHERE id = ?";
+
+			PreparedStatement update;
+			update = connection.prepareStatement(sql);
+			update.setString(1, beanProduto.getDescricao());
+			update.setInt(2, beanProduto.getQuantidade());
+			update.setString(3, beanProduto.getUnidade());
+			update.setDouble(4, beanProduto.getValor());
+			update.setLong(5, beanProduto.getId());
+
+			update.executeUpdate();
+			connection.commit();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+
+	}
+
+	public BeanProduto consultarProduto(Long id) throws Exception {
+
+		BeanProduto beanProduto = new BeanProduto();
+
+		String sql = "SELECT * FROM public.produto WHERE id = " + id;
+		PreparedStatement select = connection.prepareStatement(sql);
+		ResultSet resultSet = select.executeQuery();
+
+		while (resultSet.next()) {
+
+			beanProduto.setId(resultSet.getLong("id"));
+			beanProduto.setDescricao(resultSet.getString("descricao"));
+			beanProduto.setQuantidade(resultSet.getInt("quantidade"));
+			beanProduto.setUnidade(resultSet.getString("unidade"));
+			beanProduto.setValor(resultSet.getDouble("valor"));
+		}
+
+		return beanProduto;
 
 	}
 
