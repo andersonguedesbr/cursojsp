@@ -22,10 +22,10 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		String acao = request.getParameter("acao");
-		
-		if(acao.equalsIgnoreCase("inicial")) {
+
+		if (acao.equalsIgnoreCase("inicial")) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -40,20 +40,38 @@ public class LoginServlet extends HttpServlet {
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 
-			BeanUsuario beanUsuario = daoUsuario.validarUsuario(login, senha);
-			
-			if (beanUsuario != null) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");
-				request.setAttribute("user", beanUsuario);
-				dispatcher.forward(request, response);
-			} else {
+			if (this.isEmpty(login, senha)) {
+
 				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-				request.setAttribute("msg", "Credenciais inválidas");
+				request.setAttribute("msg", "Informe o Login e Senha.");
 				dispatcher.forward(request, response);
+
+			} else {
+
+				BeanUsuario beanUsuario = daoUsuario.validarUsuario(login, senha);
+
+				if (beanUsuario != null) {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");
+					request.setAttribute("user", beanUsuario);
+					dispatcher.forward(request, response);
+				} else {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+					request.setAttribute("msg", "Credenciais inválidas");
+					dispatcher.forward(request, response);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private boolean isEmpty(String login, String senha) {
+
+		if (login == null || login.isEmpty() || senha == null || senha.isEmpty()) {
+
+			return true;
+		}
+		return false;
 	}
 
 }

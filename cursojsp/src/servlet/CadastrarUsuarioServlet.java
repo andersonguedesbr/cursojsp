@@ -55,7 +55,7 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
 
-			}else if (acao.equalsIgnoreCase("detalhar")) {
+			} else if (acao.equalsIgnoreCase("detalhar")) {
 
 				BeanUsuario beanUsuario = daoUsuario.consultarUsuario(Integer.parseInt(id));
 
@@ -64,8 +64,6 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 
 			}
-			
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -104,30 +102,45 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 
 			} else if (acao.equalsIgnoreCase("incluir")) {
 
-				if (!daoUsuario.isDuplicado(beanUsuario, acao)) {
+				if (beanUsuario.isEmpty()) {
 
-					daoUsuario.incluirUsuario(beanUsuario);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
+					request.setAttribute("msg", "Preencha todos os campos obrigatórios.");
+					request.setAttribute("user", beanUsuario);
+					dispatcher.forward(request, response);
 
-				} else {
+				} else if (daoUsuario.isDuplicado(beanUsuario, acao)) {
 
 					RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
 					request.setAttribute("msg", "Já existe um usuário com o login informado!");
 					request.setAttribute("nome", beanUsuario.getNome());
 					dispatcher.forward(request, response);
+
+				} else {
+
+					daoUsuario.incluirUsuario(beanUsuario);
+
 				}
 
 			} else if (acao.equalsIgnoreCase("editar")) {
 
-				if (!daoUsuario.isDuplicado(beanUsuario, acao)) {
-
-					daoUsuario.editarUsuario(beanUsuario);
-
-				} else {
-					request.setAttribute("msg", "Já existe um usuário com o login informado!");
+				if (beanUsuario.isEmpty()) {
 
 					RequestDispatcher dispatcher = request.getRequestDispatcher("editarUsuario.jsp");
+					request.setAttribute("msg", "Preencha todos os campos obrigatórios.");
 					request.setAttribute("user", beanUsuario);
 					dispatcher.forward(request, response);
+
+				} else if (daoUsuario.isDuplicado(beanUsuario, acao)) {
+
+					RequestDispatcher dispatcher = request.getRequestDispatcher("editarUsuario.jsp");
+					request.setAttribute("msg", "Já existe um usuário com o login informado!");
+					request.setAttribute("user", beanUsuario);
+					dispatcher.forward(request, response);
+
+				} else {
+
+					daoUsuario.editarUsuario(beanUsuario);
 				}
 			}
 
@@ -138,7 +151,5 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
-
 }

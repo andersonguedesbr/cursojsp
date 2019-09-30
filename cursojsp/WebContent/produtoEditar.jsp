@@ -28,27 +28,27 @@
 	<ul class="form-style-1">
 		
 		<li> <label> Código:</label> 
-		<input type="text" id="id" name="id" value="${produto.id}" class="field-divided" readonly="readonly" >
+		<input type="text" id="id" name="id" value="${prod.id}" class="field-divided" readonly="readonly" >
 		
 		<li>
 		
 		<li> <label> Descrição:<span class="required">*</span></label> 
-		<input type="text" id="descricao" name="descricao" class="field-divided" placeholder="Insira a descrição do produto" value="${produto.descricao}">
+		<input type="text" id="descricao" name="descricao" class="field-divided" placeholder="Insira a descrição do produto" value="${prod.descricao}">
 		
 		<li>
 		
 		<li> <label> Quantidade:<span class="required">*</span></label> 
-		<input type="text" id="quantidade" name="quantidade" class="field-divided" placeholder="Insira a quantidade do produto" value="${produto.quantidade}">
+		<input type="text" id="quantidade" name="quantidade" class="field-divided" placeholder="Insira a quantidade do produto" value="${prod.quantidade}">
 		
 		<li>
 		
 		<li> <label> Unidade:<span class="required">*</span></label> 
-		<input type="text" id="unidade" name="unidade" class="field-divided" placeholder="Insira a unidade da quantidade do produto" value="${produto.unidade}">
+		<input type="text" id="unidade" name="unidade" class="field-divided" placeholder="Insira a unidade da quantidade do produto" value="${prod.unidade}">
 		
 		<li>
 		
 		<li> <label> Valor (R$):<span class="required">*</span></label> 
-		<input type="text" id="valor" name="valor" class="field-divided" placeholder="Insira o valor do produto" value="${produto.valor}">
+		<input type="text" id="valor" name="valor" class="field-divided" placeholder="Insira o valor do produto" value="${prod.valor}">
 		
 		<li>
 		

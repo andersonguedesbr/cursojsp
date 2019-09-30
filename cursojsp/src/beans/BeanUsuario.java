@@ -59,5 +59,18 @@ public class BeanUsuario {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
+	
+	public boolean isEmpty () {
+
+		if (this.getLogin() == null || this.getLogin().isEmpty() 
+				|| this.getNome() == null || this.getNome().isEmpty() 
+				|| this.getSenha() == null || this.getSenha().isEmpty() 
+				|| this.getTelefone() == null || this.getTelefone().isEmpty()) {
+		
+			return true;
+		}
+		
+		return false;
+	}
 
 }

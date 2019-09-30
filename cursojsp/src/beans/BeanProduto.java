@@ -49,5 +49,7 @@ public class BeanProduto {
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
+	
+	
 
 }

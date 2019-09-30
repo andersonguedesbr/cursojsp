@@ -108,7 +108,7 @@ public class DaoProduto {
 	public void editar(BeanProduto beanProduto) {
 
 		try {
-			String sql = "UPDATE public.produto SET (descricao, quantidade, unidade, valor) VALUES (?, ?, ?, ?) WHERE id = ?";
+			String sql = "UPDATE public.produto SET descricao = ?, quantidade = ?, unidade = ?, valor = ? WHERE id = ?";
 
 			PreparedStatement update;
 			update = connection.prepareStatement(sql);
@@ -151,6 +151,48 @@ public class DaoProduto {
 
 		return beanProduto;
 
+	}
+
+	public void excluir(Long id) {
+
+		try {
+			String sql = "DELETE FROM public.produto WHERE id = " + id;
+			PreparedStatement delete = connection.prepareStatement(sql);
+			delete.execute();
+			connection.commit();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+
+	}
+
+	public boolean isDuplicado(BeanProduto beanProduto, String acao) throws Exception {
+
+		String sql = "SELECT count (*) FROM public.produto WHERE descricao = ?";
+
+		if (acao.equalsIgnoreCase("editar")) {
+			sql += " AND id != " + beanProduto.getId();
+		}
+
+		PreparedStatement select = connection.prepareStatement(sql);
+		select.setString(1, beanProduto.getDescricao());
+		ResultSet resultSet = select.executeQuery();
+
+		if (resultSet.next()) {
+			
+			if (resultSet.getInt("count") > 0) {
+			
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }
