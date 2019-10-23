@@ -17,7 +17,30 @@
 
 <script type="text/javascript">
 	function voltar() {
-		location.href = "CadastrarUsuarioServlet?acao=listar"
+		location.href = "CadastrarUsuarioServlet?acao=listar";
+	}
+	
+	function validarCampos() {
+		
+		if(document.getElementById("nome").value == ""){
+			alert("O campo Nome é de preenchimento obrigatório!");
+			return false;
+			
+		} else if(document.getElementById("login").value == ""){
+			alert("O campo Login é de preenchimento obrigatório!");
+			return false;
+			
+		} else if(document.getElementById("senha").value == ""){
+			alert("O campo Senha é de preenchimento obrigatório!");
+			return false;
+			
+		} else if(document.getElementById("telefone").value == ""){
+			alert("O campo Telefone é de preenchimento obrigatório!");
+			return false;
+		}
+		
+		return true;
+		
 	}
 </script>
 
@@ -26,7 +49,7 @@
 
 <h3 style="color:red;">${msg}</h3>
 
-<form action="CadastrarUsuarioServlet" method="post">
+<form action="CadastrarUsuarioServlet" method="post" onsubmit="return validarCampos() ? true : false">
 	<ul class="form-style-1">
 		<li> <label> Nome:<span class="required">*</span></label> 
 		<input type="text" id="nome" name="nome" class="field-divided" placeholder="Insira o nome" value="${user.nome}">
@@ -43,7 +66,7 @@
 		
 		<li>
 		
-		<li> <label> Telefone: </label>
+		<li> <label> Telefone: <span class="required">*</span></label>
 			 <input type="text" id="telefone" name="telefone" class="field-divided" placeholder="Insira o telefone" value="${user.telefone}">
 
 		<li>

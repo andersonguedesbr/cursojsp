@@ -19,7 +19,28 @@
 	<script type="text/javascript">
 	function voltar()
 	{
-		location.href="CadastrarUsuarioServlet?acao=listar"
+		location.href="CadastrarUsuarioServlet?acao=listar";
+	}
+	
+	function validarCampos() {
+		
+		if(document.getElementById("nome").value == ""){
+			alert("O campo Nome é de preenchimento obrigatório!");
+			return false;
+		
+		} else if (document.getElementById("login").value == ""){
+			alert("O campo Login é de preenchimento obrigatório!");
+			return false;
+			
+		} else if (document.getElementById("senha").value == ""){
+			alert("O campo Senha é de preenchimento obrigatório!");
+			return false;
+			
+		} else if (document.getElementById("telefone").value == ""){
+			alert("O campo Telefone é de preenchimento obrigatório!");
+			return false;
+		}
+		return true;
 	}
 	</script>
 
@@ -28,7 +49,7 @@
 	
 	<h3 style="color:red;">${msg}</h3>
 	
-	<form action="CadastrarUsuarioServlet" method="post">
+	<form action="CadastrarUsuarioServlet" method="post" onsubmit="return validarCampos() ? true : false">
 	<ul class="form-style-1">
 				<li> <label> Código</label>
 				<input type="text" id="id" name="id" value="${user.id}" readonly="readonly" class="field-divided">

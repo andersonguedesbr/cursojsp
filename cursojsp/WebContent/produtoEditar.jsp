@@ -18,13 +18,34 @@
 		location.href="ProdutoServlet?acao=listar"
 		
 	}
+	
+	function validarCampos() {
+		if(document.getElementById("descricao").value == ""){
+			alert("O campo Descricao é de preenchimento obrigatório!");
+			return false;
+			
+		} else if(document.getElementById("quantidade").value == ""){
+			alert("O campo Quantidade é de preenchimento obrigatório!");
+			return false;
+			
+		} else if(document.getElementById("unidade").value == ""){
+			alert("O campo Unidade é de preenchimento obrigatório!");
+			return false;
+			
+		} else if(document.getElementById("valor").value == ""){
+			alert("O campo Valor é de preenchimento obrigatório!");
+			return false
+			
+		}
+		return true;
+	}
 </script>
 
 	<h1>Alteração de Produto</h1>
 	
 	<h3 style="color:red;">${msg}</h3>
 	
-	<form action="ProdutoServlet" method="post">
+	<form action="ProdutoServlet" method="post" onsubmit="return validarCampos() ? true : false">
 	<ul class="form-style-1">
 		
 		<li> <label> Código:</label> 
@@ -58,5 +79,7 @@
 	
 	</form>
 
+
+          
 </body>
 </html>
