@@ -13,6 +13,11 @@
 <meta charset="UTF-8">
 <title>Sistema JSP </title>
 
+<!-- Adicionando JQuery -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	crossorigin="anonymous"></script>
+
 </head>
 <body>
 
@@ -41,6 +46,48 @@
 			return false;
 		}
 		return true;
+	}
+	
+	function consultarCep() {
+		
+		$("#logradouro").val("");
+		$("#bairro").val("");
+		$("#municipio").val("");
+		$("#uf").val("");
+		$("#ibge").val("");
+		
+		var cep = $("#cep").val().replace(/\D/g, '');
+		
+		if(cep != ""){
+			
+			var validacep = /^[0-9]{8}$/;
+			
+			if(validacep.test(cep)){
+				$("#logradouro").val("Carregando ...");
+				$("#bairro").val("Carregando ...");
+				$("#municipio").val("Carregando ...");
+				$("#uf").val("Carregando ...");
+				$("#ibge").val("Carregando ...");
+				
+				$.getJSON("https://viacep.com.br/ws/" + cep
+						+ "/json/?callback=?", function(dados) {
+										
+					if(!("erro" in dados)){
+						$("#logradouro").val(dados.logradouro);
+						$("#bairro").val(dados.bairro);
+						$("#municipio").val(dados.localidade);
+						$("#uf").val(dados.uf);
+						$("#ibge").val(dados.ibge);
+					
+					} else{
+						alert("CEP não encontrado!");
+					}
+				})
+			} else{
+				alert("O CEP informado é inválido!");
+			}
+		}
+
 	}
 	</script>
 
@@ -72,8 +119,33 @@
 				<li>
 				
 				<li> <label> Telefone: </label>
-			 	<input type="text" id="telefone" name="telefone" class="field-divided" value="${user.telefone}">
+			 	<input type="text" id="telefone" name="telefone" class="field-divided"  value="${user.telefone}">
 
+				<li>
+				
+				<li> <label> CEP: </label>
+			 	<input type="text" id="cep" name="cep" class="field-divided" placeholder="Insira o CEP" onblur="consultarCep()">
+
+				<li>
+				
+				<li><label> Logradouro: </label> <input type="text" id="logradouro" name="logradouro" class="field-divided" readonly="readonly">
+			
+				<li>
+			
+				<li><label> Bairro: </label> <input type="text" id="bairro" name="bairro" class="field-divided" readonly="readonly">
+				
+				<li>
+				
+				<li><label> Município: </label> <input type="text" id="municipio" name="municipio" class="field-divided" readonly="readonly">
+				
+				<li>
+			
+				<li><label> UF: </label> <input type="text" id="uf" name="uf" class="field-divided" readonly="readonly">
+				
+				<li>
+			
+				<li><label> Código IBGE: </label> <input type="text" id="ibge"	name="ibge" class="field-divided" readonly="readonly">
+				
 				<li>
 				
 				<li> <label> Ativo: <span class="required">*</span></label>
