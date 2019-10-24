@@ -84,6 +84,12 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 			String senha = request.getParameter("senha");
 			String telefone = request.getParameter("telefone");
 			boolean situacao = request.getParameter("situacao") != null;
+			String cep = request.getParameter("cep");
+			String logradouro = request.getParameter("logradouro");
+			String bairro = request.getParameter("bairro");
+			String municipio = request.getParameter("municipio");
+			String uf = request.getParameter("uf");
+			String ibge = request.getParameter("ibge");
 
 			BeanUsuario beanUsuario = new BeanUsuario();
 
@@ -93,6 +99,12 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 			beanUsuario.setSenha(senha);
 			beanUsuario.setTelefone(telefone);
 			beanUsuario.setSituacao(situacao);
+			beanUsuario.setCep(cep);
+			beanUsuario.setLogradouro(logradouro);
+			beanUsuario.setBairro(bairro);
+			beanUsuario.setMunicipio(municipio);
+			beanUsuario.setUf(uf);
+			beanUsuario.setIbge(ibge);
 
 			if (acao.equalsIgnoreCase("pesquisar")) {
 

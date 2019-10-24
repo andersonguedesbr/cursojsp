@@ -20,13 +20,19 @@ public class DaoUsuario {
 
 	public void incluirUsuario(BeanUsuario beanUsuario) {
 		try {
-			String sql = "INSERT INTO public.user (nome, login, senha, telefone, situacao) VALUES (?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO public.user (nome, login, senha, telefone, situacao, cep, logradouro, bairro, municipio, uf, ibge) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, beanUsuario.getNome());
 			insert.setString(2, beanUsuario.getLogin());
 			insert.setString(3, beanUsuario.getSenha());
 			insert.setString(4, beanUsuario.getTelefone());
 			insert.setBoolean(5, beanUsuario.isSituacao());
+			insert.setString(6, beanUsuario.getCep());
+			insert.setString(7, beanUsuario.getLogradouro());
+			insert.setString(8, beanUsuario.getBairro());
+			insert.setString(9, beanUsuario.getMunicipio());
+			insert.setString(10, beanUsuario.getUf());
+			insert.setString(11, beanUsuario.getIbge());
 			insert.execute();
 			connection.commit();
 
@@ -56,6 +62,12 @@ public class DaoUsuario {
 			beanUsuario.setLogin(resultSet.getString("login"));
 			beanUsuario.setTelefone(resultSet.getString("telefone"));
 			beanUsuario.setSituacao(resultSet.getBoolean("situacao"));
+			beanUsuario.setCep(resultSet.getString("cep"));
+			beanUsuario.setLogradouro(resultSet.getString("logradouro"));
+			beanUsuario.setBairro(resultSet.getString("bairro"));
+			beanUsuario.setMunicipio(resultSet.getString("municipio"));
+			beanUsuario.setUf(resultSet.getString("uf"));
+			beanUsuario.setIbge(resultSet.getString("ibge"));
 
 			listaUsuario.add(beanUsuario);
 		}
@@ -113,7 +125,8 @@ public class DaoUsuario {
 	public void editarUsuario(BeanUsuario beanUsuario) {
 
 		try {
-			String sql = "UPDATE public.user SET nome = ?, login = ?, senha = ?, situacao = ?, telefone = ? WHERE id = ?";
+			String sql = "UPDATE public.user SET nome = ?, login = ?, senha = ?, situacao = ?, telefone = ?, cep = ?, logradouro = ?,"
+					+ " bairro = ?, municipio = ?, uf = ?, ibge = ? WHERE id = ?";
 
 			PreparedStatement update = connection.prepareStatement(sql);
 			update.setString(1, beanUsuario.getNome());
@@ -121,7 +134,13 @@ public class DaoUsuario {
 			update.setString(3, beanUsuario.getSenha());
 			update.setBoolean(4, beanUsuario.isSituacao());
 			update.setString(5, beanUsuario.getTelefone());
-			update.setInt(6, beanUsuario.getId());
+			update.setString(6, beanUsuario.getCep());
+			update.setString(7, beanUsuario.getLogradouro());
+			update.setString(8, beanUsuario.getBairro());
+			update.setString(9, beanUsuario.getMunicipio());
+			update.setString(10, beanUsuario.getUf());
+			update.setString(11, beanUsuario.getIbge());
+			update.setInt(12, beanUsuario.getId());
 			update.executeUpdate();
 			connection.commit();
 
@@ -150,6 +169,12 @@ public class DaoUsuario {
 			beanUsuario.setLogin(resultSet.getString("login"));
 			beanUsuario.setSituacao(resultSet.getBoolean("situacao"));
 			beanUsuario.setTelefone(resultSet.getString("telefone"));
+			beanUsuario.setCep(resultSet.getString("cep"));
+			beanUsuario.setLogradouro(resultSet.getString("logradouro"));
+			beanUsuario.setBairro(resultSet.getString("bairro"));
+			beanUsuario.setMunicipio(resultSet.getString("municipio"));
+			beanUsuario.setUf(resultSet.getString("uf"));
+			beanUsuario.setIbge(resultSet.getString("ibge"));
 
 			return beanUsuario;
 		}

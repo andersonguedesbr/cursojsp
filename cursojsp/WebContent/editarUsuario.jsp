@@ -124,27 +124,27 @@
 				<li>
 				
 				<li> <label> CEP: </label>
-			 	<input type="text" id="cep" name="cep" class="field-divided" placeholder="Insira o CEP" onblur="consultarCep()">
+			 	<input type="text" id="cep" name="cep" class="field-divided" placeholder="Insira o CEP" value="${user.cep}" onblur="consultarCep()">
 
 				<li>
 				
-				<li><label> Logradouro: </label> <input type="text" id="logradouro" name="logradouro" class="field-divided" readonly="readonly">
+				<li><label> Logradouro: </label> <input type="text" id="logradouro" name="logradouro" class="field-divided" readonly="readonly" value="${user.logradouro}">
 			
 				<li>
 			
-				<li><label> Bairro: </label> <input type="text" id="bairro" name="bairro" class="field-divided" readonly="readonly">
+				<li><label> Bairro: </label> <input type="text" id="bairro" name="bairro" class="field-divided" readonly="readonly" value="${user.bairro}">
 				
 				<li>
 				
-				<li><label> Município: </label> <input type="text" id="municipio" name="municipio" class="field-divided" readonly="readonly">
-				
-				<li>
-			
-				<li><label> UF: </label> <input type="text" id="uf" name="uf" class="field-divided" readonly="readonly">
+				<li><label> Município: </label> <input type="text" id="municipio" name="municipio" class="field-divided" readonly="readonly" value="${user.municipio}">
 				
 				<li>
 			
-				<li><label> Código IBGE: </label> <input type="text" id="ibge"	name="ibge" class="field-divided" readonly="readonly">
+				<li><label> UF: </label> <input type="text" id="uf" name="uf" class="field-divided" readonly="readonly" value="${user.uf}">
+				
+				<li>
+			
+				<li><label> Código IBGE: </label> <input type="text" id="ibge"	name="ibge" class="field-divided" readonly="readonly" value="${user.ibge}">
 				
 				<li>
 				
