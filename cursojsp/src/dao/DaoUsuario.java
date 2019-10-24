@@ -17,7 +17,7 @@ public class DaoUsuario {
 	public DaoUsuario() {
 		connection = SingleConnection.getConnection();
 	}
-
+ 
 	public void incluirUsuario(BeanUsuario beanUsuario) {
 		try {
 			String sql = "INSERT INTO public.user (nome, login, senha, telefone, situacao, cep, logradouro, bairro, municipio, uf, ibge) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

@@ -122,7 +122,7 @@
 			<li>
 			<li><label> Logradouro: </label> <input type="text"
 				id="logradouro" name="logradouro" class="field-divided"
-				readonly="readonly">
+ 				readonly="readonly">
 			<li>
 			<li><label> Bairro: </label> <input type="text" id="bairro"
 				name="bairro" class="field-divided" readonly="readonly">

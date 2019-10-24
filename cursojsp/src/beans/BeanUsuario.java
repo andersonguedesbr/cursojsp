@@ -14,7 +14,7 @@ public class BeanUsuario {
 	private String municipio;
 	private String uf;
 	private String ibge;
-
+ 
 	public BeanUsuario() {
 	}
 

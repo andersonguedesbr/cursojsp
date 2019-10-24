@@ -143,7 +143,7 @@
 				<li><label> UF: </label> <input type="text" id="uf" name="uf" class="field-divided" readonly="readonly" value="${user.uf}">
 				
 				<li>
-			
+		 	
 				<li><label> Código IBGE: </label> <input type="text" id="ibge"	name="ibge" class="field-divided" readonly="readonly" value="${user.ibge}">
 				
 				<li>

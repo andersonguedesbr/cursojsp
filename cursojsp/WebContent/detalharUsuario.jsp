@@ -64,7 +64,7 @@
 				<li><label> Município: </label> <input type="text" id="municipio" name="municipio" class="field-divided" readonly="readonly" value="${user.municipio}">
 				
 				<li>
-			
+			  
 				<li><label> UF: </label> <input type="text" id="uf" name="uf" class="field-divided" readonly="readonly" value="${user.uf}">
 				
 				<li>
