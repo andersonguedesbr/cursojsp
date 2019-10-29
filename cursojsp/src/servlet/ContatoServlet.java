@@ -32,19 +32,41 @@ public class ContatoServlet extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		try {
-			
-			String user = request.getParameter("user");
+
 			String acao = request.getParameter("acao");
-			
-			request.getSession().setAttribute("user", user);
 
 			if (acao.equalsIgnoreCase("novo")) {
-
+				int user = (int) request.getSession().getAttribute("user");
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("ContatoIncluir.jsp");
 				request.setAttribute("tipoContato", daoTipoContato.listar());
-				request.setAttribute("user", daoUsuario.consultarUsuario(Integer.valueOf(user)));
+				request.setAttribute("user", daoUsuario.consultarUsuario(user));
+				dispatcher.forward(request, response);
+
+			} else if (acao.equalsIgnoreCase("listar")) {
+
+				int user = Integer.parseInt(request.getParameter("user"));
+				request.getSession().setAttribute("user", user);
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("ContatoListar.jsp");
+				request.setAttribute("tipoContato", daoTipoContato.listar());
+				request.setAttribute("user",
+						daoUsuario.consultarUsuario((int) request.getSession().getAttribute("user")));
+				request.setAttribute("contatos", daoContato.listar((int) request.getSession().getAttribute("user")));
+				dispatcher.forward(request, response);
+			
+			} else if (acao.equalsIgnoreCase("editar")) {
+				
+				int user = (int) request.getSession().getAttribute("user");
+				Long idContato = Long.parseLong(request.getParameter("contato"));
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("ContatoEditar.jsp");
+				request.setAttribute("tipoContato", daoTipoContato.listar());
+				request.setAttribute("user", daoUsuario.consultarUsuario(user));
+				request.setAttribute("contatox", daoContato.consultarPorId(idContato));
 				dispatcher.forward(request, response);
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -53,27 +75,43 @@ public class ContatoServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		String acao = request.getParameter("acao");
-		int id = Integer.parseInt(request.getParameter("id") == null || request.getParameter("id").isEmpty() ? "0" : request.getParameter("id"));
-		int idUsuario = Integer.parseInt((String) request.getSession().getAttribute("user"));
-		int tipoContato =  Integer.parseInt(request.getParameter("tipoContato") == null || request.getParameter("tipoContato").isEmpty() ? "0" : request.getParameter("tipoContato"));
-		String contato = request.getParameter("contato");
-		
-		BeanContato beanContato = new BeanContato();
-		BeanTipoContato beanTipoContato = new BeanTipoContato();
-		
-		beanContato.setId(id);
-		beanContato.setIdUsuario(idUsuario);
-		beanContato.setTipoContato(beanTipoContato);
-		beanContato.setContato(contato);
-		beanTipoContato.setId(tipoContato);
-		
-		
-		if (acao.equalsIgnoreCase("incluir")) {
+
+		try {
 			
-			daoContato.incluir(beanContato);
+			int user = (int) request.getSession().getAttribute("user");
 			
+			String acao = request.getParameter("acao");
+			int id = Integer.parseInt(request.getParameter("id") == null || request.getParameter("id").isEmpty() ? "0"
+					: request.getParameter("id"));
+			int idUsuario = (int) request.getSession().getAttribute("user");
+			int tipoContato = Integer.parseInt(
+					request.getParameter("tipoContato") == null || request.getParameter("tipoContato").isEmpty() ? "0"
+							: request.getParameter("tipoContato"));
+			String contato = request.getParameter("contato");
+
+			BeanContato beanContato = new BeanContato();
+			BeanTipoContato beanTipoContato = new BeanTipoContato();
+
+			beanContato.setId(id);
+			beanContato.setIdUsuario(idUsuario);
+			beanContato.setTipoContato(beanTipoContato);
+			beanContato.setContato(contato);
+			beanTipoContato.setId(tipoContato);
+
+			if (acao.equalsIgnoreCase("incluir")) {
+
+				daoContato.incluir(beanContato);
+
+			}
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("ContatoListar.jsp");
+			request.setAttribute("tipoContato", daoTipoContato.listar());
+			request.setAttribute("user", daoUsuario.consultarUsuario(user));
+			request.setAttribute("contatos", daoContato.listar(user));
+			dispatcher.forward(request, response);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

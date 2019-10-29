@@ -15,19 +15,14 @@
 
 	<script type="text/javascript">
 		function voltar() {
-			location.href = "CadastrarUsuarioServlet?acao=listar";
+			location.href = "ContatoServlet?acao=listar&user=${user.id}";
 		}
 	</script>
 
-	<h1>Cadastrar novo Contato</h1>
+	<h1>Cadastrar novo Contato (${user.id} - ${user.nome})</h1>
 	
 	<form action="ContatoServlet" method="post">
 		<ul class="form-style-1">
-		
-		<li><label>Usuário</label> 
-			<input type="text" id="usuario" name="usuario" class="field-divided" readonly="readonly" value="${user.id} - ${user.nome}">
-			
-		<li>
 		
 		<li><label> Tipo de Contato:<span class="required">*</span></label> 
 			<select id="tipoContato" name="tipoContato" class="field-divided" >

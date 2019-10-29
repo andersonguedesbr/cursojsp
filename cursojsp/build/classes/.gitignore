@@ -1,4 +1,6 @@
 /beans/
-/enumeradores/
+/connection/
+/constantes/
 /dao/
+/filter/
 /servlet/

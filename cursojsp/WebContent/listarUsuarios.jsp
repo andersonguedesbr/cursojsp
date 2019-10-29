@@ -93,7 +93,7 @@
         				<a href="CadastrarUsuarioServlet?acao=delete&user=${user.id}"><img alt="Excluir" title="Excluir" src="resources/images/delete.png"></a>
         				<a href="CadastrarUsuarioServlet?acao=update&user=${user.id}"><img alt="Editar" title="Editar" src="resources/images/edit.png"></a>
         				<a href="CadastrarUsuarioServlet?acao=detalhar&user=${user.id}"><img alt="Detalhar" title="Detalhar" src="resources/images/detalhar.png"></a>
-        				<a href="ContatoServlet?acao=novo&user=${user.id}"><img alt="Contatos" title="Contatos" src="resources/images/contato.png"></a>
+        				<a href="ContatoServlet?acao=listar&user=${user.id}"><img alt="Contatos" title="Contatos" src="resources/images/contato.png"></a>
       				</div>
       			</div>
 					
