@@ -27,6 +27,9 @@
 		<form action="ContatoServlet" method="post">
 			<ul class="form-style-1">
 			
+			<li><label>Código Contato:</label>
+				<input type="text" id="id" name="id" readonly="readonly" value="${contatox.id}" class="field-divided">
+			
 			<li><label>Tipo de Contato:<span class="required">*</span></label> 
 				<select id="tipoContato" name="tipoContato" class="field-divided">
 					<c:forEach var="tipoContato" items="${tipoContato}">

@@ -49,7 +49,7 @@ public class DaoContato {
 
 		String sql = "SELECT cont.id as id, tpcont.tipocontato as tipocontato , cont.contato as contato FROM tblcontato as cont "
 				+ "INNER JOIN tbltipocontato as tpcont ON cont.idtipocontato = tpcont.id WHERE cont.idusuario = "
-				+ idUsuario;
+				+ idUsuario + " ORDER BY tipocontato";
 
 		PreparedStatement select = connection.prepareStatement(sql);
 		ResultSet resultSet = select.executeQuery();
@@ -89,6 +89,49 @@ public class DaoContato {
 			}
 			
 			return beanContato;
+	}
+	
+	public void editar(BeanContato beanContato) {
+		
+		try {
+		String sql = "UPDATE tblcontato SET idtipocontato = ?, contato = ? WHERE id = ?";
+			PreparedStatement update = connection.prepareStatement(sql);
+			update.setInt(1, beanContato.getTipoContato().getId());
+			update.setString(2, beanContato.getContato());
+			update.setLong(3, beanContato.getId());
+			update.executeUpdate();
+			connection.commit();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+	}
+	
+	
+	public void excluir(Long id) {
+		
+		try {
+		String sql = "DELETE FROM tblcontato WHERE id = " + id;
+			PreparedStatement delete = connection.prepareStatement(sql);
+			delete.execute();
+			connection.commit();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		
 	}
 
 }

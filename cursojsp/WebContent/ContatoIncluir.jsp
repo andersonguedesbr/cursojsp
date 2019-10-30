@@ -24,7 +24,7 @@
 	<form action="ContatoServlet" method="post">
 		<ul class="form-style-1">
 		
-		<li><label> Tipo de Contato:<span class="required">*</span></label> 
+		<li><label>Tipo de Contato:<span class="required">*</span></label> 
 			<select id="tipoContato" name="tipoContato" class="field-divided" >
 				<option value="">Selecione uma opção</option>
 				
