@@ -31,10 +31,10 @@
 
 	<h1>Pesquisar Contatos (${user.id} - ${user.nome})</h1>
 	
-		<form action="">
+		<form action="ContatoServlet" method="post">
 			<ul class="form-style-1">
 				<li><label>Tipo de Contato: </label>
-					<select id="tipoContato" name="tipocontato" class="field-divided">
+					<select id="tipoContato" name="tipoContato" class="field-divided">
 						<option value="">Selecione uma opção</option>
 						
 						<c:forEach var="tipoContato" items="${tipoContato}">
@@ -46,7 +46,7 @@
 				<li>
 				
 				<li><label>Contato:</label>
-				<input type="text" id="contato" name="contato" class="field-divided">
+				<input type="text" id="contato" name="contato" class="field-divided" value="${param.contato}">
 				
 				<li>
 				

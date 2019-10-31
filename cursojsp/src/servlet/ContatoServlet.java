@@ -125,17 +125,33 @@ public class ContatoServlet extends HttpServlet {
 			if (acao.equalsIgnoreCase("incluir")) {
 
 				daoContato.incluir(beanContato);
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("ContatoListar.jsp");
+				request.setAttribute("tipoContato", daoTipoContato.listar());
+				request.setAttribute("user", daoUsuario.consultarUsuario(idUsuario));
+				request.setAttribute("contatos", daoContato.listar(idUsuario));
+				dispatcher.forward(request, response);
 
 			} else if (acao.equalsIgnoreCase("update")) {
 				
 				daoContato.editar(beanContato);
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("ContatoListar.jsp");
+				request.setAttribute("tipoContato", daoTipoContato.listar());
+				request.setAttribute("user", daoUsuario.consultarUsuario(idUsuario));
+				request.setAttribute("contatos", daoContato.listar(idUsuario));
+				dispatcher.forward(request, response);
+			
+			} else if(acao.equalsIgnoreCase("pesquisar")) {
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("ContatoListar.jsp");
+				request.setAttribute("tipoContato", daoTipoContato.listar());
+				request.setAttribute("user", daoUsuario.consultarUsuario(idUsuario));
+				request.setAttribute("contatos", daoContato.pesquisar(idUsuario, idtipoContato, contato));
+				dispatcher.forward(request, response);
 			}
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("ContatoListar.jsp");
-			request.setAttribute("tipoContato", daoTipoContato.listar());
-			request.setAttribute("user", daoUsuario.consultarUsuario(idUsuario));
-			request.setAttribute("contatos", daoContato.listar(idUsuario));
-			dispatcher.forward(request, response);
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

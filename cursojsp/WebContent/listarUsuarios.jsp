@@ -1,10 +1,11 @@
-<jsp:useBean id="usuario" class="beans.BeanUsuario"
-	type="beans.BeanUsuario" scope="page" />
+<jsp:useBean id="usuario" class="beans.BeanUsuario" type="beans.BeanUsuario" scope="page" />
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+    pageEncoding="UTF-8"%>
+    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="resources/css/form.css">
@@ -26,6 +27,8 @@
 	{
 		location.href="CadastrarUsuarioServlet?acao=novo"
 	}
+	
+	
 	</script>
 
 
@@ -73,6 +76,7 @@
         	 </div>
         </div>
 			<c:forEach items="${usuarios}" var="user">
+        
 				<div class="row">
 					<div class="cell" data-title="Código">
         				<c:out value="${user.id}"></c:out>

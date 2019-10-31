@@ -133,5 +133,45 @@ public class DaoContato {
 		
 		
 	}
+	
+	public List<BeanContato> pesquisar(int idUsuario, int idTipoContato, String contato) throws Exception{
+		
+		List<BeanContato> listaContatos = new ArrayList<BeanContato>();
+		
+		String sql = "SELECT * FROM tblcontato cont "
+					+ "LEFT JOIN tbltipocontato as tpcont ON cont.idtipocontato = tpcont.id WHERE cont.idusuario = ? AND cont.contato LIKE ?";
+	
+		if (idTipoContato != 0) {
+			sql += " AND cont.idtipocontato = ?";
+		}
+		
+		sql += " ORDER BY tpcont.tipocontato";
+					
+		PreparedStatement select = connection.prepareStatement(sql);
+		select.setInt(1, idUsuario);
+		select.setString(2, "%"+contato+"%");
+		
+		if (idTipoContato != 0) {
+			select.setInt(3, idTipoContato);
+		}
+		
+		ResultSet resultSet = select.executeQuery();
+		
+		while (resultSet.next()) {
+			BeanContato beanContato = new BeanContato();
+			BeanTipoContato beanTipoContato = new BeanTipoContato();
+			
+			beanContato.setId(resultSet.getLong("id"));
+			beanContato.setIdUsuario(resultSet.getInt("idusuario"));
+			beanContato.setContato(resultSet.getString("contato"));
+			beanTipoContato.setId(resultSet.getInt("idtipocontato"));
+			beanTipoContato.setTipoContato(resultSet.getString("tipocontato"));
+			beanContato.setTipoContato(beanTipoContato);
+			
+			listaContatos.add(beanContato);
+		}
+		
+		return listaContatos;
+	}
 
 }
