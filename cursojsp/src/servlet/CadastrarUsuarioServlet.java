@@ -1,6 +1,8 @@
 package servlet;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -118,15 +121,13 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 				
 				if(ServletFileUpload.isMultipartContent(request)) {
 					
-					List<FileItem> fileItems = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+					Part imagemFoto = request.getPart("foto");
 					
-					for(FileItem fileItem : fileItems) {
-						
-						if(fileItem.getFieldName().equalsIgnoreCase("foto")) {
-							String foto = new Base64().encodeBase64String(fileItem.get());
-							
-						}
-					}
+					String fotoBase64 = new Base64().encodeBase64String(converterStreamByte(imagemFoto.getInputStream()));
+					
+					beanUsuario.setFoto(fotoBase64);
+					beanUsuario.setContentType(imagemFoto.getContentType());
+					
 				}
 				
 				if (acao.equalsIgnoreCase("pesquisar")) {
@@ -189,5 +190,19 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private byte [] converterStreamByte (InputStream imagem) throws Exception {
+		
+		ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+		
+		int reads = imagem.read();
+		
+		while (reads != -1) {
+			arrayOutputStream.write(reads);
+			reads = imagem.read();
+		}
+		
+		return arrayOutputStream.toByteArray();
 	}
 }

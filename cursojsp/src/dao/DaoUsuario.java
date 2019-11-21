@@ -20,7 +20,7 @@ public class DaoUsuario {
  
 	public void incluirUsuario(BeanUsuario beanUsuario) {
 		try {
-			String sql = "INSERT INTO public.user (nome, login, senha, telefone, situacao, cep, logradouro, bairro, municipio, uf, ibge) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO public.user (nome, login, senha, telefone, situacao, cep, logradouro, bairro, municipio, uf, ibge, foto, contenttype) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, beanUsuario.getNome());
 			insert.setString(2, beanUsuario.getLogin());
@@ -33,6 +33,8 @@ public class DaoUsuario {
 			insert.setString(9, beanUsuario.getMunicipio());
 			insert.setString(10, beanUsuario.getUf());
 			insert.setString(11, beanUsuario.getIbge());
+			insert.setString(12, beanUsuario.getFoto());
+			insert.setString(13, beanUsuario.getContentType());
 			insert.execute();
 			connection.commit();
 

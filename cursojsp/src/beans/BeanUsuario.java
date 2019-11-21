@@ -14,6 +14,8 @@ public class BeanUsuario {
 	private String municipio;
 	private String uf;
 	private String ibge;
+	private String foto;
+	private String contentType;
  
 	public BeanUsuario() {
 	}
@@ -112,6 +114,24 @@ public class BeanUsuario {
 
 	public void setIbge(String ibge) {
 		this.ibge = ibge;
+	}
+	
+	
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 
 	public boolean isEmpty() {
