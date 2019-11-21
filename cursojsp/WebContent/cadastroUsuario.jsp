@@ -111,7 +111,7 @@
 			<li><label> Senha: <span class="required">*</span></label> <input
 				type="password" id="senha" name="senha" class="field-divided"
 				placeholder="Insira a senha" >
-			<li>
+			<li> 
 			<li><label> Telefone: <span class="required">*</span></label> <input
 				type="text" id="telefone" name="telefone" class="field-divided"
 				placeholder="Insira o telefone" >

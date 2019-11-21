@@ -118,7 +118,7 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 				beanUsuario.setMunicipio(municipio);
 				beanUsuario.setUf(uf);
 				beanUsuario.setIbge(ibge);
-				
+				 
 				if(ServletFileUpload.isMultipartContent(request)) {
 					
 					Part imagemFoto = request.getPart("foto");

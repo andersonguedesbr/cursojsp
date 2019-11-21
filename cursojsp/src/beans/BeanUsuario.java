@@ -115,7 +115,7 @@ public class BeanUsuario {
 	public void setIbge(String ibge) {
 		this.ibge = ibge;
 	}
-	
+	 
 	
 
 	public String getFoto() {

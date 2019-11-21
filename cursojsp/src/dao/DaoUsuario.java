@@ -39,7 +39,7 @@ public class DaoUsuario {
 			connection.commit();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 			try {
 				connection.rollback();
 			} catch (Exception e1) {
