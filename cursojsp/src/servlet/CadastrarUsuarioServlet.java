@@ -1,18 +1,26 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.tomcat.util.codec.binary.Base64;
+
 import beans.BeanUsuario;
 import dao.DaoUsuario;
 
 @WebServlet("/CadastrarUsuarioServlet")
+@MultipartConfig
 public class CadastrarUsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -75,90 +83,108 @@ public class CadastrarUsuarioServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-
-			String acao = request.getParameter("acao");
-
-			String id = request.getParameter("id");
-			String nome = request.getParameter("nome");
-			String login = request.getParameter("login");
-			String senha = request.getParameter("senha");
-			String telefone = request.getParameter("telefone");
-			boolean situacao = request.getParameter("situacao") != null;
-			String cep = request.getParameter("cep");
-			String logradouro = request.getParameter("logradouro");
-			String bairro = request.getParameter("bairro");
-			String municipio = request.getParameter("municipio");
-			String uf = request.getParameter("uf");
-			String ibge = request.getParameter("ibge");
-
-			BeanUsuario beanUsuario = new BeanUsuario();
-
-			beanUsuario.setId(id != null ? Integer.parseInt(id) : 0);
-			beanUsuario.setNome(nome);
-			beanUsuario.setLogin(login);
-			beanUsuario.setSenha(senha);
-			beanUsuario.setTelefone(telefone);
-			beanUsuario.setSituacao(situacao);
-			beanUsuario.setCep(cep);
-			beanUsuario.setLogradouro(logradouro);
-			beanUsuario.setBairro(bairro);
-			beanUsuario.setMunicipio(municipio);
-			beanUsuario.setUf(uf);
-			beanUsuario.setIbge(ibge);
-
-			if (acao.equalsIgnoreCase("pesquisar")) {
-
+			
+			// Upload de arquivo
+			
+				String acao = request.getParameter("acao");
+				
+				String id = request.getParameter("id");
+				String nome = request.getParameter("nome");
+				String login = request.getParameter("login");
+				String senha = request.getParameter("senha");
+				String telefone = request.getParameter("telefone");
+				boolean situacao = request.getParameter("situacao") != null;
+				String cep = request.getParameter("cep");
+				String logradouro = request.getParameter("logradouro");
+				String bairro = request.getParameter("bairro");
+				String municipio = request.getParameter("municipio");
+				String uf = request.getParameter("uf");
+				String ibge = request.getParameter("ibge");
+				
+				BeanUsuario beanUsuario = new BeanUsuario();
+				
+				beanUsuario.setId(id != null && !id.isEmpty() ? Integer.parseInt(id) : 0);
+				beanUsuario.setNome(nome);
+				beanUsuario.setLogin(login);
+				beanUsuario.setSenha(senha);
+				beanUsuario.setTelefone(telefone);
+				beanUsuario.setSituacao(situacao);
+				beanUsuario.setCep(cep);
+				beanUsuario.setLogradouro(logradouro);
+				beanUsuario.setBairro(bairro);
+				beanUsuario.setMunicipio(municipio);
+				beanUsuario.setUf(uf);
+				beanUsuario.setIbge(ibge);
+				
+				if(ServletFileUpload.isMultipartContent(request)) {
+					
+					List<FileItem> fileItems = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+					
+					for(FileItem fileItem : fileItems) {
+						
+						if(fileItem.getFieldName().equalsIgnoreCase("foto")) {
+							String foto = new Base64().encodeBase64String(fileItem.get());
+							
+						}
+					}
+				}
+				
+				if (acao.equalsIgnoreCase("pesquisar")) {
+					
+					RequestDispatcher view = request.getRequestDispatcher("listarUsuarios.jsp");
+					request.setAttribute("usuarios", daoUsuario.consultarUsuarios(nome, login, situacao));
+					view.forward(request, response);
+					
+				} else if (acao.equalsIgnoreCase("incluir")) {
+					
+					if (beanUsuario.isEmpty()) {
+						
+						RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
+						request.setAttribute("msg", "Preencha todos os campos obrigatórios.");
+						request.setAttribute("user", beanUsuario);
+						dispatcher.forward(request, response);
+						
+					} else if (daoUsuario.isDuplicado(beanUsuario, acao)) {
+						
+						RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
+						request.setAttribute("msg", "Já existe um usuário com o login informado!");
+						request.setAttribute("nome", beanUsuario.getNome());
+						dispatcher.forward(request, response);
+						
+					} else {
+						
+						daoUsuario.incluirUsuario(beanUsuario);
+						
+					}
+					
+				} else if (acao.equalsIgnoreCase("editar")) {
+					
+					if (beanUsuario.isEmpty()) {
+						
+						RequestDispatcher dispatcher = request.getRequestDispatcher("editarUsuario.jsp");
+						request.setAttribute("msg", "Preencha todos os campos obrigatórios.");
+						request.setAttribute("user", beanUsuario);
+						dispatcher.forward(request, response);
+						
+					} else if (daoUsuario.isDuplicado(beanUsuario, acao)) {
+						
+						RequestDispatcher dispatcher = request.getRequestDispatcher("editarUsuario.jsp");
+						request.setAttribute("msg", "Já existe um usuário com o login informado!");
+						request.setAttribute("user", beanUsuario);
+						dispatcher.forward(request, response);
+						
+					} else {
+						
+						daoUsuario.editarUsuario(beanUsuario);
+					}
+				}
+				
 				RequestDispatcher view = request.getRequestDispatcher("listarUsuarios.jsp");
-				request.setAttribute("usuarios", daoUsuario.consultarUsuarios(nome, login, situacao));
+				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
+			
+			
 
-			} else if (acao.equalsIgnoreCase("incluir")) {
-
-				if (beanUsuario.isEmpty()) {
-
-					RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
-					request.setAttribute("msg", "Preencha todos os campos obrigatórios.");
-					request.setAttribute("user", beanUsuario);
-					dispatcher.forward(request, response);
-
-				} else if (daoUsuario.isDuplicado(beanUsuario, acao)) {
-
-					RequestDispatcher dispatcher = request.getRequestDispatcher("cadastroUsuario.jsp");
-					request.setAttribute("msg", "Já existe um usuário com o login informado!");
-					request.setAttribute("nome", beanUsuario.getNome());
-					dispatcher.forward(request, response);
-
-				} else {
-
-					daoUsuario.incluirUsuario(beanUsuario);
-
-				}
-
-			} else if (acao.equalsIgnoreCase("editar")) {
-
-				if (beanUsuario.isEmpty()) {
-
-					RequestDispatcher dispatcher = request.getRequestDispatcher("editarUsuario.jsp");
-					request.setAttribute("msg", "Preencha todos os campos obrigatórios.");
-					request.setAttribute("user", beanUsuario);
-					dispatcher.forward(request, response);
-
-				} else if (daoUsuario.isDuplicado(beanUsuario, acao)) {
-
-					RequestDispatcher dispatcher = request.getRequestDispatcher("editarUsuario.jsp");
-					request.setAttribute("msg", "Já existe um usuário com o login informado!");
-					request.setAttribute("user", beanUsuario);
-					dispatcher.forward(request, response);
-
-				} else {
-
-					daoUsuario.editarUsuario(beanUsuario);
-				}
-			}
-
-			RequestDispatcher view = request.getRequestDispatcher("listarUsuarios.jsp");
-			request.setAttribute("usuarios", daoUsuario.listar());
-			view.forward(request, response);
 
 		} catch (Exception e) {
 			e.printStackTrace();
